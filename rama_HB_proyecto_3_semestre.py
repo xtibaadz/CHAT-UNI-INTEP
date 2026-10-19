@@ -38,19 +38,21 @@ class Chat:
         # Iniciamos el índice en la última posición válida
         i = len(self.mensajes) - 1
 
-        # Mientas el índice sea mayor o igual a 0, recorremos hacia atrás
+
+        # Mientas el índice sea mayor o igual de 0, recorremos hacia atrás
         while i >= 0:
             print(self.mensajes[i])
             i -= 1
 
 
 # --- PRUEBA Y EJECUCIÓN ---
+
 if __name__ == "__main__":
     # 1. Creamos una instancia de Chat
-    mi_chat = Chat(nombre_chat="Proyecto Python")
+    mi_chat = Chat(nombre_chat="Proyecto chat")
 
     # 2. Registramos varios mensajes
-    mi_chat.enviar_mensaje("Alice", "Hola a todos, ¿cómo van?")
+    mi_chat.enviar_mensaje("Alice", "Hola a todos, ¿cómo estan?")
     mi_chat.enviar_mensaje("ivan", "¡Hola! Todo bien por acá.")
     mi_chat.enviar_mensaje("Charlie", "Avanzando con el código.")
     mi_chat.enviar_mensaje("Alice", "Excelente, no olviden hacer push.")
