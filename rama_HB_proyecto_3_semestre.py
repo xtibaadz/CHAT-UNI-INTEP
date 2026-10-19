@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     # 2. Registramos varios mensajes
     mi_chat.enviar_mensaje("Alice", "Hola a todos, ¿cómo van?")
-    mi_chat.enviar_mensaje("Bob", "¡Hola! Todo bien por acá.")
+    mi_chat.enviar_mensaje("ivan", "¡Hola! Todo bien por acá.")
     mi_chat.enviar_mensaje("Charlie", "Avanzando con el código.")
     mi_chat.enviar_mensaje("Alice", "Excelente, no olviden hacer push.")
 
