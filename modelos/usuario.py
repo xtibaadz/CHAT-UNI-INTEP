@@ -1,9 +1,9 @@
 class Usuario:
-    def __init__(self, id, nombre, email, contraseña):
+    def __init__(self, id, nombre, email, contrasena):
         self.id = id
         self.nombre = nombre
         self.email = email
-        self.contrasena = contraseña
+        self.contrasena = contrasena
 
     def enviar_mensaje(self, chat, contenido):
         return chat.agregar_mensaje(self, contenido)
