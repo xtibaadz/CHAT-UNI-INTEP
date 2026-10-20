@@ -14,3 +14,4 @@ class Mensaje:
             "emisor": self.emisor.nombre,
             "contenido": self.contenido,
             "fecha_hora": self.fecha_hora.isoformat(timespec="seconds")
+        }    
