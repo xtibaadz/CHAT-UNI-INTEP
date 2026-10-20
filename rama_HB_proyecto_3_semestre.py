@@ -2,62 +2,75 @@ from datetime import datetime
 
 
 class Mensaje:
+    """Clase que representa un mensaje individual en el chat."""
 
-    def __init__(self, identificador: int, emisor: str, contenido: str, fecha_hora=None):
-        self.identificador = identificador
+    def __init__(self, id_mensaje, emisor, contenido):
+        self.id_mensaje = id_mensaje
         self.emisor = emisor
         self.contenido = contenido
-        # Si no se proporciona fecha y hora, se asigna el momento actual
-        self.fecha_hora = (fecha_hora if fecha_hora else datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        # Registra automáticamente la fecha y hora actual al crearse
+        self.fecha_hora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    def __repr__(self):
-        return f"[{self.fecha_hora}] ID {self.identificador} | {self.emisor}: {self.contenido}"
+    def __str__(self):
+        return f"[{self.fecha_hora}] {self.emisor} (ID: {self.id_mensaje}): {self.contenido}"
 
 
 class Chat:
+    """Clase encargada de gestionar y almacenar el historial de mensajes."""
 
-    def __init__(self, nombre_chat: str):
+    def __init__(self, nombre_chat):
         self.nombre_chat = nombre_chat
-        self.mensajes = []  # Lista para almacenar los objetos Mensaje
-        self._contador_id = 1
+        self.mensajes = []
+        self._contador_id = 1  # Autoincremento para generar IDs únicos
 
-    def enviar_mensaje(self, emisor: str, contenido: str):
-        """Crea y almacena un nuevo mensaje en el chat."""
+    def enviar_mensaje(self, emisor, contenido):
+        """Crea un nuevo mensaje y lo almacena en el chat."""
         nuevo_mensaje = Mensaje(self._contador_id, emisor, contenido)
         self.mensajes.append(nuevo_mensaje)
         self._contador_id += 1
+        return nuevo_mensaje
 
-    def recorrer_mensajes_inverso_while(self):
-        """Recorre e imprime la lista de mensajes de forma inversa usando un bucle while."""
-        print(f"--- Historial Inverso del Chat '{self.nombre_chat}' ---")
-
+    def ver_mensajes(self):
+        """Muestra todos los mensajes guardados."""
+        print(f"\n--- Historial del Chat: {self.nombre_chat} ---")
         if not self.mensajes:
-            print("El chat no tiene mensajes.")
+            print("No hay mensajes en este chat.")
             return
 
-        # Iniciamos el índice en la última posición válida
-        i = len(self.mensajes) - 1
+        for msg in self.mensajes:
+            print(msg)
+
+    def buscar_por_emisor(self, emisor):
+        """Devuelve una lista con los mensajes de un usuario en específico."""
+        return [msg for msg in self.mensajes if msg.emisor == emisor]
 
 
-        # Mientas el índice sea mayor o igual de 0, recorremos hacia atrás
-        while i >= 0:
-            print(self.mensajes[i])
-            i -= 1
 
+# Ejemplo de uso
 
-# --- PRUEBA Y EJECUCIÓN ---
 
 if __name__ == "__main__":
-    # 1. Creamos una instancia de Chat
-    mi_chat = Chat(nombre_chat="Proyecto chat")
+    # 1. Crear una sala de chat
+    mi_chat = Chat("Grupo de Proyecto Python")
 
-    # 2. Registramos varios mensajes
-    mi_chat.enviar_mensaje("Alice", "Hola a todos, ¿cómo estan?")
-    mi_chat.enviar_mensaje("ivan", "¡Hola! Todo bien por acá.")
-    mi_chat.enviar_mensaje("Charlie", "Avanzando con el código.")
-    mi_chat.enviar_mensaje("Alice", "Excelente, no olviden hacer push.")
+    # 2. Enviar mensajes
+    mi_chat.enviar_mensaje("Hector", "¡Hola a todos! ¿Cómo van con la tarea?")
+    mi_chat.enviar_mensaje("Nikoll", "¡Hola Hector! Ya casi termino la parte de la clase Mensaje.")
+    mi_chat.enviar_mensaje("Hector", "¡Excelente, avísame si necesitan ayuda!")
+    mi_chat.enviar_mensaje("Ivan", "¡Gracias, Hector! yo necesito ayuda con la función de búsqueda por emisor.")
 
-    # 3. Recorremos la lista de mensajes de forma inversa usando while
-    mi_chat.recorrer_mensajes_inverso_while()
-    
+    # 3. Consultar todos los mensajes
+    mi_chat.ver_mensajes()
+
+    # 4. Consultar mensajes de un emisor específico
+    print("\n--- Mensajes enviados solo por Hector and Nikoll ---")
+    mensajes_hector = mi_chat.buscar_por_emisor("Hector")
+    mensajes_nikoll = mi_chat.buscar_por_emisor("Nikoll")
+    mensajes_ivan = mi_chat.buscar_por_emisor("Ivan")
+    for msg in mensajes_hector:
+        print(msg)
+    for msg in mensajes_nikoll:
+        print(msg)
+    for msg in mensajes_ivan:
+        print(msg)
     
